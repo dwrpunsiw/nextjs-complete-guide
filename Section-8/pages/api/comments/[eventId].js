@@ -1,11 +1,9 @@
-import { MongoClient } from "mongodb";
+import { connectDatabase, insertDocument } from "../../../helper/db-util";
 
 async function handler(req, res) {
   const eventId = req.query.eventId;
 
-  const client = await MongoClient.connect(
-    "mongodb+srv://wisnuprsj:ArungJeram23!@mern.7ysrk.mongodb.net/nextjs?retryWrites=true&w=majority"
-  );
+  const client = await connectDatabase();
 
   if (req.method === "POST") {
     const { email, name, text } = req.body;
@@ -28,9 +26,7 @@ async function handler(req, res) {
       eventId,
     };
 
-    const db = client.db();
-
-    const result = await db.collection("comments").insertOne(newComment);
+    const result = await insertDocument(client, "comments", newComment);
 
     console.log(result);
 

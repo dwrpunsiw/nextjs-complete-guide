@@ -2,7 +2,11 @@ import { MongoClient } from "mongodb";
 
 export async function connectDatabase() {
   const client = await MongoClient.connect(
-    "mongodb+srv://wisnuprsj:ArungJeram23!@mern.7ysrk.mongodb.net/nextjs?retryWrites=true&w=majority"
+    constructConnection(
+      process.env.MONGO_CONN_STRING,
+      process.env.MONGO_USERNAME,
+      process.env.MONGO_PASSWORD
+    )
   );
 
   return client;
@@ -11,5 +15,13 @@ export async function connectDatabase() {
 export async function insertDocument(client, collection, document) {
   const db = client.db();
 
-  await db.collection(collection).insertOne(document);
+  return await db.collection(collection).insertOne(document);
+}
+
+function constructConnection(connectionString, username, password) {
+  console.log(connectionString, username, password);
+  connectionString = connectionString.replace("<username>", username);
+  connectionString = connectionString.replace("<password>", password);
+
+  return connectionString;
 }
