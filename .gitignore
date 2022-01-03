@@ -13,3 +13,7 @@ node_modules/
 .env
 /.env
 .env/
+
+next.config.js
+/next.config.js
+next.config.js/

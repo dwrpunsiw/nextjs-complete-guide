@@ -1,6 +1,6 @@
 import PostItem from "./post-item";
 
-import classes from "./post-grid.module.css";
+import classes from "./posts-grid.module.css";
 
 function PostsGrid(props) {
   const { posts } = props;
@@ -8,7 +8,7 @@ function PostsGrid(props) {
   return (
     <ul className={classes.grid}>
       {posts.map((post) => (
-        <PostItem post={post} />
+        <PostItem key={post.slug} post={post} />
       ))}
     </ul>
   );
